@@ -1,0 +1,13 @@
+{
+  "name": "pretty-decent-editor",
+  "version": "1.0.0",
+  "description": "a pretty decent editor",
+  "main": "index.js",
+  "repository": "git@github.com:iammorganparry/pretty-decent-editor.git",
+  "author": "Morgan Parry <m.parry@talentticker.ai>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ]
+}
