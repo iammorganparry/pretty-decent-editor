@@ -17,7 +17,13 @@ type PrettyDecentBlockTypes =
     'code' |
     'table' |
     'table-row' |
-    'table-col'
+    'table-col' |
+    'table-cell' |
+    'link' |
+    "heading-three" |
+    "heading-four" |
+    "heading-five" |
+    "heading-six"
 
 
 type PrettyDecentMarkTypes = 'bold' | 'italic' | 'strikethrough' | 'underline'
@@ -30,9 +36,10 @@ interface PrettyDecentChildren {
     italic?: boolean,
     code?: boolean
     underline?: boolean
+    strikethrough?: boolean
 }
 
-type PrettyDecentElement = { type: PrettyDecentBlockTypes; children: PrettyDecentChildren[] }
+type PrettyDecentElement = { type: PrettyDecentBlockTypes; children: PrettyDecentChildren[], url?: string }
 type PrettyDecentEditor = BaseEditor & ReactEditor
 
 declare module 'slate' {
