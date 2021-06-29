@@ -10,8 +10,9 @@ import { BiCode, BiBold, BiUnderline, BiItalic, BiHeading, BiListOl, BiListUl, B
 import { GoQuote } from 'react-icons/go'
 import { PrettyDecentLeafs } from './leafs'
 import { withTables } from 'utils/withTables'
-import 'react-tippy/dist/tippy.css'
+import 'tippy.js/dist/tippy.css'; // optional for styling
 import { withHtml } from 'utils/withHtml'
+import { PrettyDecentTableBtn } from 'components/PrettyDecentTableBtn'
 // type CustomElement = { type: 'paragraph'; children: CustomText[] }
 
 export type PrettyDecentProps = {
@@ -44,39 +45,39 @@ export const PrettyDecentEditor = ({ className }: PrettyDecentProps) => {
             >
                 <PrettyDecentToolbar>
                     <PrettyDecentButton tooltipProps={{
-                        title: 'Bold',
+                        content: 'Bold',
                     }} format="bold" type='mark'>
                         <BiBold />
                     </PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
-                        title: 'Italic',
+                        content: 'Italic',
                     }} format="italic" type='mark'>
                         <BiItalic />
                     </PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
-                        title: 'Underline',
+                        content: 'Underline',
                     }} format="underline" type='mark'>
                         <BiUnderline />
                     </PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
-                        title: 'Code',
+                        content: 'Code',
                     }} format="code" type='block'>
                         <BiCode />
                     </PrettyDecentButton>
+                    <PrettyDecentTableBtn tooltipProps={{
+                        content: 'Table',
+                    }} format="table" type='block'><BiTable /></PrettyDecentTableBtn>
                     <PrettyDecentButton tooltipProps={{
-                        title: 'Table',
-                    }} format="table" type='block'><BiTable /></PrettyDecentButton>
-                    <PrettyDecentButton tooltipProps={{
-                        title: 'Heading',
+                        content: 'Heading',
                     }} format="heading-one" type='block'><BiHeading /></PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
-                        title: 'Block Quote',
+                        content: 'Block Quote',
                     }} format="block-quote" type='block'><GoQuote /></PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
-                        title: 'Numbered List',
+                        content: 'Numbered List',
                     }} format="numbered-list" type='block'><BiListOl /></PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
-                        title: 'Bulleted List',
+                        content: 'Bulleted List',
                     }} format="bulleted-list" type='block'><BiListUl /></PrettyDecentButton>
                 </PrettyDecentToolbar>
                 <StyledSlateEditor

@@ -1,9 +1,10 @@
-import React, { PropsWithChildren, useCallback } from "react";
-import { Tooltip, TooltipProps } from "react-tippy";
+import React, { ForwardedRef, PropsWithChildren, useCallback } from "react";
+import Tippy, { TippyProps } from "@tippyjs/react";
 import { Editor, Element, Transforms } from "slate";
 import { useSlate } from "slate-react";
 import styled, { css } from "styled-components";
 import { PrettyDecentEditor, PrettyDecentBlockTypes, PrettyDecentMarkTypes, PrettyDecentElement, PrettyDecentChildren } from "../../../../slate";
+import { forwardRef } from "react";
 
 type StyledBtnProps = {
     active: boolean
@@ -70,11 +71,11 @@ const toggleBlock = (editor: PrettyDecentEditor, format: PrettyDecentBlockTypes)
 export type PrettyDecentButtonProps = {
     format: PrettyDecentMarkTypes | PrettyDecentBlockTypes
     type: 'block' | 'mark'
-    tooltipProps: TooltipProps
+    tooltipProps: TippyProps
     onClick?: () => void
 }
 
-export const PrettyDecentButton = ({ format, children, type, tooltipProps, onClick }: PropsWithChildren<PrettyDecentButtonProps>) => {
+export const PrettyDecentButton = forwardRef(({ format, children, type, tooltipProps, onClick }: PropsWithChildren<PrettyDecentButtonProps>, ref: ForwardedRef<HTMLButtonElement>) => {
     const editor = useSlate()
     const handleClick = useCallback((event: React.MouseEvent) => {
         if (onClick) {
@@ -102,16 +103,16 @@ export const PrettyDecentButton = ({ format, children, type, tooltipProps, onCli
     }, [format, editor, isBlockActive, isMarkActive])
 
     return (
-        <Tooltip
-            position='top'
-            distance={20}
+        <Tippy
+            placement='top'
             {...tooltipProps}>
             <StyledBtn
+                ref={ref}
                 active={checkActive(type)}
                 onClick={handleClick}
             >
                 {children}
             </StyledBtn>
-        </Tooltip >
+        </Tippy>
     )
-}
+})
