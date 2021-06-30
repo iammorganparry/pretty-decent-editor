@@ -21,10 +21,13 @@
     "jsx": "react",
     "typeRoots": [
       "../../node_modules/@types",
+      "../../node_modules",
+      "./node_modules",
     ]
   },
   "include": [
     "./src",
-    "slate.d.ts"
+    "slate.d.ts",
+    "./jest-setup.ts"
   ]
 }

@@ -75,7 +75,7 @@ export type PrettyDecentButtonProps = {
     onClick?: () => void
 }
 
-export const PrettyDecentButton = forwardRef(({ format, children, type, tooltipProps, onClick }: PropsWithChildren<PrettyDecentButtonProps>, ref: ForwardedRef<HTMLButtonElement>) => {
+export const PrettyDecentButton = forwardRef(({ format, children, type, tooltipProps, onClick, ...others }: PropsWithChildren<PrettyDecentButtonProps>, ref: ForwardedRef<HTMLButtonElement>) => {
     const editor = useSlate()
     const handleClick = useCallback((event: React.MouseEvent) => {
         if (onClick) {
@@ -110,9 +110,12 @@ export const PrettyDecentButton = forwardRef(({ format, children, type, tooltipP
                 ref={ref}
                 active={checkActive(type)}
                 onClick={handleClick}
+                {...others}
             >
                 {children}
             </StyledBtn>
         </Tippy>
     )
 })
+
+PrettyDecentButton.displayName = 'PrettyDecentButton'

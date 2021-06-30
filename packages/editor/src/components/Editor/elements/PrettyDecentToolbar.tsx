@@ -1,5 +1,5 @@
 import React, { ForwardedRef, MutableRefObject, PropsWithChildren } from "react";
-import { PrettyDecentProps } from "Editor";
+import { PrettyDecentProps } from "components/Editor";
 import { PrettyDecentMenu } from "./PrettyDecentMenu";
 import styled from "styled-components";
 export const PrettyDecentToolbar = ({ className, ...props }: PropsWithChildren<PrettyDecentProps>) => (

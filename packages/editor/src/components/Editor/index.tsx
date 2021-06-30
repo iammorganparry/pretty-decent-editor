@@ -46,44 +46,46 @@ export const PrettyDecentEditor = ({ className }: PrettyDecentProps) => {
                 <PrettyDecentToolbar>
                     <PrettyDecentButton tooltipProps={{
                         content: 'Bold',
-                    }} format="bold" type='mark'>
+                    }} format="bold" type='mark' data-testid='bold-btn'>
                         <BiBold />
                     </PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
                         content: 'Italic',
-                    }} format="italic" type='mark'>
+                    }} format="italic" type='mark' data-testid='italic-btn'>
                         <BiItalic />
                     </PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
                         content: 'Underline',
-                    }} format="underline" type='mark'>
+                    }} format="underline" type='mark' data-testid='underline-btn'>
                         <BiUnderline />
                     </PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
                         content: 'Code',
-                    }} format="code" type='block'>
+                    }} format="code" type='block' data-testid='code-btn'>
                         <BiCode />
                     </PrettyDecentButton>
                     <PrettyDecentTableBtn tooltipProps={{
                         content: 'Table',
-                    }} format="table" type='block'><BiTable /></PrettyDecentTableBtn>
+                    }} format="table" type='block' data-testid='table-btn'><BiTable /></PrettyDecentTableBtn>
                     <PrettyDecentButton tooltipProps={{
                         content: 'Heading',
-                    }} format="heading-one" type='block'><BiHeading /></PrettyDecentButton>
+                    }} format="heading-one" type='block' data-testid='heading-btn'><BiHeading /></PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
                         content: 'Block Quote',
-                    }} format="block-quote" type='block'><GoQuote /></PrettyDecentButton>
+                    }} format="block-quote" type='block' data-testid='quote-btn'><GoQuote /></PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
                         content: 'Numbered List',
-                    }} format="numbered-list" type='block'><BiListOl /></PrettyDecentButton>
+                    }} format="numbered-list" type='block' data-testid='ol-btn'><BiListOl /></PrettyDecentButton>
                     <PrettyDecentButton tooltipProps={{
                         content: 'Bulleted List',
-                    }} format="bulleted-list" type='block'><BiListUl /></PrettyDecentButton>
+                    }} format="bulleted-list" type='block' data-testid='ul-btn'><BiListUl /></PrettyDecentButton>
                 </PrettyDecentToolbar>
                 <StyledSlateEditor
                     placeholder="Enter some text..."
                     spellCheck
                     autoFocus
+                    data-testid='pretty-decent-editor'
+                    name='pretty-decent-editor'
                     renderLeaf={renderLeaf}
                     className={className}
                     renderElement={renderElement}

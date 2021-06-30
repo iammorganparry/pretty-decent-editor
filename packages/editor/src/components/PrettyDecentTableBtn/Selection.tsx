@@ -1,5 +1,4 @@
-import React, { ForwardedRef, useState } from 'react'
-import { forwardRef } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const SelectionBox = styled.div`
@@ -32,7 +31,7 @@ export const Selection = (props) => {
 
     }
     return (
-        <SelectionBox {...props} ref={ref}>
+        <SelectionBox {...props}>
             {Array.from({ length: 6 }).map((row, i) => (
                 <Row key={`row-${i}`} className='row'>
                     {Array.from({ length: 6 }).map((col, j) => {

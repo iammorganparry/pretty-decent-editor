@@ -12,6 +12,8 @@ export const PrettyDecentIcon = React.forwardRef(
     )
 )
 
+PrettyDecentIcon.displayName = 'PrettyDecentIcon'
+
 const StyledIcon = styled.span`
     font-size: 40px;
     width: 20px;

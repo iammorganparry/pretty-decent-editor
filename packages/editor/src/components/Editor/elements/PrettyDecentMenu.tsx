@@ -1,4 +1,4 @@
-import { PrettyDecentProps } from "Editor";
+import { PrettyDecentProps } from "components/Editor";
 import React, { ForwardedRef, MutableRefObject, PropsWithChildren } from "react";
 import styled from "styled-components";
 
