@@ -2,6 +2,7 @@ import React from 'react'
 import { RenderElementProps } from 'slate-react'
 import { PrettyDecentImage } from './PrettyDecentImage'
 import { PrettyDecentTable } from './PrettyDecentTable'
+import { PrettyDecentTableCell } from './PrettyDecentTableCell'
 
 export const PrettyDecentElements = ({ attributes, children, element }: RenderElementProps) => {
     switch (element.type) {
@@ -11,8 +12,8 @@ export const PrettyDecentElements = ({ attributes, children, element }: RenderEl
             return <PrettyDecentTable {...attributes}>{children}</PrettyDecentTable>
         case 'table-row':
             return <tr {...attributes}>{children}</tr>
-        case 'table-col':
-            return <td {...attributes}>{children}</td>
+        case 'table-cell':
+            return <PrettyDecentTableCell {...attributes}>{children}</PrettyDecentTableCell>
         case 'block-quote':
             return <blockquote {...attributes}>{children}</blockquote>
         case 'bulleted-list':

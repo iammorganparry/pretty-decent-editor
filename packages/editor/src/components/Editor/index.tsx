@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
-import { withReact, Slate } from 'slate-react'
+import { withReact } from 'slate-react'
 import { createEditor } from 'slate'
 import { PrettyDecentElements } from './elements'
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles'

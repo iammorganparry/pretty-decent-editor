@@ -2,15 +2,13 @@ import React, { ForwardedRef, PropsWithChildren } from "react";
 import styled from "styled-components";
 import { PrettyDecentProps } from "..";
 
-export const PrettyDecentIcon = React.forwardRef(
-    ({ className, children, ...props }: PropsWithChildren<PrettyDecentProps>, ref: ForwardedRef<HTMLSpanElement>) => (
+export const PrettyDecentIcon = 
+    ({ className, children, ...props }: PropsWithChildren<PrettyDecentProps>) => (
         <StyledIcon
             {...props}
-            ref={ref}
             className={`material-icons ${className}`}
         >{children}</StyledIcon>
     )
-)
 
 PrettyDecentIcon.displayName = 'PrettyDecentIcon'
 

@@ -37,6 +37,8 @@ interface PrettyDecentChildren {
     code?: boolean
     underline?: boolean
     strikethrough?: boolean
+    type?: PrettyDecentBlockTypes
+    children?: PrettyDecentChildren[]
 }
 
 type PrettyDecentElement = { type: PrettyDecentBlockTypes; children: PrettyDecentChildren[], url?: string }

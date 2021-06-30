@@ -1,30 +1,28 @@
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useRef, useState } from 'react'
 import {
     PrettyDecentButton,
     PrettyDecentButtonProps,
 } from 'components/Editor/elements/PrettyDecentButton'
-import Tippy from '@tippyjs/react'
+import { Portal, PortalWithState } from 'react-portal';
+import { Selection } from './Selection';
 
 export const PrettyDecentTableBtn = ({
     children,
     ...props
 }: PropsWithChildren<PrettyDecentButtonProps>) => {
-    const [showPopper, setShowPopper] = useState(false)
-    const handleClick = () => {
-        setShowPopper(true)
-    }
+    const ref = useRef<HTMLButtonElement>(null)
     return (
-        <Tippy
-            placement="bottom"
-            interactive
-            visible={showPopper}
-            interactiveBorder={3}
-            arrow
-            theme="light"
-        >
-            <PrettyDecentButton {...props} onClick={handleClick}>
-                {children}
-            </PrettyDecentButton>
-        </Tippy>
+            <PortalWithState closeOnOutsideClick closeOnEsc node={ref.current}>
+            {({ openPortal, closePortal, isOpen }) => (
+                <>
+                    <PrettyDecentButton {...props}  onClick={openPortal} ref={ref}>
+                        {children}
+                    </PrettyDecentButton>
+                     { isOpen && (
+                            <Selection setClose={closePortal} />
+                        )}
+                </>
+            )}
+            </PortalWithState>
     )
 }

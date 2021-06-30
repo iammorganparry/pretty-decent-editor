@@ -3,9 +3,11 @@ import { ForwardedRef } from "react"
 import { forwardRef, PropsWithChildren } from "react"
 import styled from "styled-components"
 
-type PrettyDecentTableProps = React.HTMLAttributes<HTMLTableElement> & {}
+type PrettyDecentTableProps = React.HTMLAttributes<HTMLTableElement> & {
+    children: React.ReactElement
+}
 
-export const PrettyDecentTable = forwardRef(({ children, ...others }: PropsWithChildren<PrettyDecentTableProps>, ref: ForwardedRef<HTMLTableElement>) => {
+export const PrettyDecentTable = forwardRef(({ children, ...others }: PrettyDecentTableProps, ref: ForwardedRef<HTMLTableElement>) => {
 
     return (
         <StyledTable ref={ref} {...others}>
@@ -16,6 +18,7 @@ export const PrettyDecentTable = forwardRef(({ children, ...others }: PropsWithC
     )
 })
 
+PrettyDecentTable.displayName = 'PrettyDecentTable'
+
 const StyledTable = styled.table`
-    border: 1px solid black;
 `

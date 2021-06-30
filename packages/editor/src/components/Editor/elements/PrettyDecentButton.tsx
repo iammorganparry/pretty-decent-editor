@@ -1,4 +1,4 @@
-import React, { ForwardedRef, PropsWithChildren, useCallback } from "react";
+import React, { ForwardedRef, MutableRefObject, PropsWithChildren, useCallback } from "react";
 import Tippy, { TippyProps } from "@tippyjs/react";
 import { Editor, Element, Transforms } from "slate";
 import { useSlate } from "slate-react";
@@ -48,7 +48,7 @@ const isBlockActive = (editor: PrettyDecentEditor, format: PrettyDecentBlockType
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 
-const toggleBlock = (editor: PrettyDecentEditor, format: PrettyDecentBlockTypes) => {
+export const toggleBlock = (editor: PrettyDecentEditor, format: PrettyDecentBlockTypes) => {
     const isActive = isBlockActive(editor, format)
     const isList = LIST_TYPES.includes(format)
 
@@ -73,49 +73,50 @@ export type PrettyDecentButtonProps = {
     type: 'block' | 'mark'
     tooltipProps: TippyProps
     onClick?: () => void
+    children: React.ReactElement
 }
 
-export const PrettyDecentButton = forwardRef(({ format, children, type, tooltipProps, onClick, ...others }: PropsWithChildren<PrettyDecentButtonProps>, ref: ForwardedRef<HTMLButtonElement>) => {
-    const editor = useSlate()
-    const handleClick = useCallback((event: React.MouseEvent) => {
-        if (onClick) {
-            onClick()
-        } else {
-            event.preventDefault()
+export const PrettyDecentButton = forwardRef(({ format, children, type, tooltipProps, onClick, ...others}: PrettyDecentButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
+        const editor = useSlate()
+        const handleClick = useCallback((event: React.MouseEvent) => {
+            if (onClick) {
+                onClick()
+            } else {
+                event.preventDefault()
+                switch (type) {
+                    case 'block':
+                        toggleBlock(editor, format as PrettyDecentBlockTypes)
+                        break;
+                    default:
+                        toggleMark(editor, format as PrettyDecentMarkTypes)
+                        break;
+                }
+            }
+        }, [format, editor])
+    
+        const checkActive = useCallback((type: 'block' | 'mark') => {
             switch (type) {
                 case 'block':
-                    toggleBlock(editor, format as PrettyDecentBlockTypes)
-                    break;
+                    return isBlockActive(editor, format as PrettyDecentBlockTypes)
                 default:
-                    toggleMark(editor, format as PrettyDecentMarkTypes)
-                    break;
+                    return isMarkActive(editor, format as PrettyDecentMarkTypes)
             }
-        }
-    }, [format, editor])
+        }, [format, editor, isBlockActive, isMarkActive])
 
-    const checkActive = useCallback((type: 'block' | 'mark') => {
-        switch (type) {
-            case 'block':
-                return isBlockActive(editor, format as PrettyDecentBlockTypes)
-            default:
-                return isMarkActive(editor, format as PrettyDecentMarkTypes)
-        }
-    }, [format, editor, isBlockActive, isMarkActive])
+        return (
+            <Tippy
+                placement='top'
+                {...tooltipProps}>
+                <StyledBtn
+                    ref={ref}
+                    active={checkActive(type)}
+                    onClick={handleClick}
+                    {...others}
+                >
+                    {children}
+                </StyledBtn>
+            </Tippy>
+        )
+    })
 
-    return (
-        <Tippy
-            placement='top'
-            {...tooltipProps}>
-            <StyledBtn
-                ref={ref}
-                active={checkActive(type)}
-                onClick={handleClick}
-                {...others}
-            >
-                {children}
-            </StyledBtn>
-        </Tippy>
-    )
-})
-
-PrettyDecentButton.displayName = 'PrettyDecentButton'
+    PrettyDecentButton.displayName = 'PrettyDecentButton'

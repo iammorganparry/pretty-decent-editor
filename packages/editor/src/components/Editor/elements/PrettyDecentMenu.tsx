@@ -1,5 +1,5 @@
 import { PrettyDecentProps } from "components/Editor";
-import React, { ForwardedRef, MutableRefObject, PropsWithChildren } from "react";
+import React, { ForwardedRef, PropsWithChildren } from "react";
 import styled from "styled-components";
 
 export const PrettyDecentMenu = React.forwardRef(({ className, ...props }: PropsWithChildren<PrettyDecentProps>, ref: ForwardedRef<HTMLDivElement>) => (
@@ -10,6 +10,8 @@ export const PrettyDecentMenu = React.forwardRef(({ className, ...props }: Props
     />
 )
 )
+
+PrettyDecentMenu.displayName = 'PrettyDecentMenu'
 
 const StyledMenu = styled.div`
     & > * {
