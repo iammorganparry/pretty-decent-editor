@@ -1,8 +1,6 @@
-import { toggleBlock } from 'components/Editor/elements/PrettyDecentButton';
 import React, { useState } from 'react';
 import { useSlate } from 'slate-react';
 import styled from 'styled-components';
-import { PrettyDecentBlockTypes } from '../../../slate';
 import { createTable } from './createTable';
 
 const SelectionBox = styled.div`
@@ -41,7 +39,7 @@ const SIZE = 3 as const;
 type SelectionProps = {
     setClose: (bool: boolean) => void;
 };
-export const Selection = ({ setClose, ...others }: SelectionProps) => {
+export const Selection = ({ setClose, ...others }: SelectionProps): JSX.Element => {
     const [size, setSize] = useState(initState);
     const editor = useSlate();
 
@@ -55,7 +53,7 @@ export const Selection = ({ setClose, ...others }: SelectionProps) => {
         setClose(true);
     };
     return (
-        <SelectionBox {...others} onMouseLeave={handleLeave}>
+        <SelectionBox data-testid="table-selection" {...others} onMouseLeave={handleLeave}>
             {Array.from({ length: SIZE }).map((row, i) => (
                 <Row key={`row-${i}`} className="row">
                     {Array.from({ length: SIZE }).map((col, j) => {

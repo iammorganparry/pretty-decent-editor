@@ -1,4 +1,4 @@
-import React, { ForwardedRef, useCallback } from 'react';
+import React, { ForwardedRef } from 'react';
 import Tippy, { TippyProps } from '@tippyjs/react';
 import { Editor, Element, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
@@ -11,13 +11,13 @@ import {
     PrettyDecentChildren,
 } from '../../../../slate';
 import { forwardRef } from 'react';
-
+import { motion } from 'framer-motion';
 type StyledBtnProps = {
     active: boolean;
     reversed?: boolean;
 };
 
-const StyledBtn = styled.button<StyledBtnProps>`
+const StyledBtn = styled(motion.button)<StyledBtnProps>`
     ${({ reversed, active }) => css`
         outline: none;
         border: none;
@@ -86,37 +86,43 @@ export const PrettyDecentButton = forwardRef(
         ref: ForwardedRef<HTMLButtonElement>,
     ) => {
         const editor = useSlate();
-        const handleClick = useCallback(
-            (event: React.MouseEvent) => {
-                event.preventDefault();
-                !checkActive(type) && onClick && onClick();
-                switch (type) {
-                    case 'block':
-                        toggleBlock(editor, format as PrettyDecentBlockTypes);
-                        break;
-                    default:
-                        toggleMark(editor, format as PrettyDecentMarkTypes);
-                        break;
-                }
-            },
-            [format, editor],
-        );
+        const checkActive = (type: 'block' | 'mark') => {
+            switch (type) {
+                case 'block':
+                    return isBlockActive(editor, format as PrettyDecentBlockTypes);
+                default:
+                    return isMarkActive(editor, format as PrettyDecentMarkTypes);
+            }
+        };
 
-        const checkActive = useCallback(
-            (type: 'block' | 'mark') => {
-                switch (type) {
-                    case 'block':
-                        return isBlockActive(editor, format as PrettyDecentBlockTypes);
-                    default:
-                        return isMarkActive(editor, format as PrettyDecentMarkTypes);
-                }
-            },
-            [format, editor, isBlockActive, isMarkActive],
-        );
+        const isActive = checkActive(type);
+
+        const handleClick = (event: React.MouseEvent) => {
+            event.preventDefault();
+            if (!isActive && onClick) {
+                onClick();
+            }
+            switch (type) {
+                case 'block':
+                    toggleBlock(editor, format as PrettyDecentBlockTypes);
+                    break;
+                default:
+                    toggleMark(editor, format as PrettyDecentMarkTypes);
+                    break;
+            }
+        };
 
         return (
             <Tippy placement="top" {...tooltipProps}>
-                <StyledBtn ref={ref} active={checkActive(type)} onClick={handleClick} {...others}>
+                <StyledBtn
+                    ref={ref}
+                    data-toggled={isActive}
+                    active={isActive}
+                    onClick={handleClick}
+                    {...others}
+                    whileTap={{ scale: 1.8 }}
+                    whileHover={{ scale: 1.2 }}
+                >
                     {children}
                 </StyledBtn>
             </Tippy>

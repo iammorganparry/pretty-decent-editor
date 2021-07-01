@@ -12,7 +12,7 @@ import { PrettyDecentLeafs } from './leafs';
 import { withTables } from 'utils/withTables';
 import 'tippy.js/dist/tippy.css'; // optional for styling
 import { withHtml } from 'utils/withHtml';
-import { PrettyDecentTableBtn } from 'components/PrettyDecentTableBtn';
+import { PrettyDecentTableBtn } from 'components/Editor/elements/PrettyDecentTableBtn';
 // type CustomElement = { type: 'paragraph'; children: CustomText[] }
 
 export type PrettyDecentProps = {
