@@ -1,6 +1,6 @@
-import { Descendant, Node } from 'slate'
-import { jsx } from 'slate-hyperscript'
-import { PrettyDecentElement } from '../../slate'
+import { Descendant, Node } from 'slate';
+import { jsx } from 'slate-hyperscript';
+import { PrettyDecentElement } from '../../slate';
 
 const ELEMENT_TAGS = {
     A: (el: Element) => ({ type: 'link', url: el.getAttribute('href') }),
@@ -17,11 +17,11 @@ const ELEMENT_TAGS = {
     P: () => ({ type: 'paragraph' }),
     PRE: () => ({ type: 'code' }),
     UL: () => ({ type: 'bulleted-list' }),
-} as const
+} as const;
 
 type PrettyDecentElementTags = typeof ELEMENT_TAGS & {
-    [key: string]: any
-}
+    [key: string]: any;
+};
 
 // COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.
 const TEXT_TAGS = {
@@ -32,44 +32,38 @@ const TEXT_TAGS = {
     S: () => ({ strikethrough: true }),
     STRONG: () => ({ bold: true }),
     U: () => ({ underline: true }),
-}
+};
 
 export const deserialize = (el: ChildNode): any => {
     if (el.nodeType === 3) {
-        return el.textContent
+        return el.textContent;
     } else if (el.nodeType !== 1) {
-        return null
+        return null;
     } else if (el.nodeName === 'BR') {
-        return '\n'
+        return '\n';
     }
 
-    const { nodeName } = el
-    let parent = el
+    const { nodeName } = el;
+    let parent = el;
 
-    if (
-        nodeName === 'PRE' &&
-        el.childNodes[0] &&
-        el.childNodes[0].nodeName === 'CODE'
-    ) {
-        parent = el.childNodes[0]
+    if (nodeName === 'PRE' && el.childNodes[0] && el.childNodes[0].nodeName === 'CODE') {
+        parent = el.childNodes[0];
     }
-    const children = Array.from(parent.childNodes)
-        .map(deserialize)
-        .flat()
+    const children = Array.from(parent.childNodes).map(deserialize).flat();
 
     if (el.nodeName === 'BODY') {
-        return jsx('fragment', {}, children)
+        return jsx('fragment', {}, children);
     }
 
     if (ELEMENT_TAGS[nodeName]) {
-        const attrs = ELEMENT_TAGS[nodeName](el)
-        return jsx('element', attrs, children)
+        const attrs = ELEMENT_TAGS[nodeName](el);
+        return jsx('element', attrs, children);
     }
 
     if (TEXT_TAGS[nodeName]) {
-        const attrs = TEXT_TAGS[nodeName](el)
-        return children.map(child => jsx('text', attrs, child))
+        const attrs = TEXT_TAGS[nodeName](el);
+        return children.map((child) => jsx('text', attrs, child));
     }
 
-    return children
-}
+    return children;
+};

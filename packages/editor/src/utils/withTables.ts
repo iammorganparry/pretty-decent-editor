@@ -1,75 +1,66 @@
-import { Editor, Point, Range, Element as SlateElement } from "slate"
-import { PrettyDecentEditor } from "../../slate"
+import { Editor, Point, Range, Element as SlateElement } from 'slate';
+import { PrettyDecentEditor } from '../../slate';
 
 export const withTables = (editor: PrettyDecentEditor) => {
-    const { deleteBackward, deleteForward, insertBreak } = editor
+    const { deleteBackward, deleteForward, insertBreak } = editor;
 
-    editor.deleteBackward = unit => {
-        const { selection } = editor
+    editor.deleteBackward = (unit) => {
+        const { selection } = editor;
 
         if (selection && Range.isCollapsed(selection)) {
             const [cell] = Editor.nodes(editor, {
-                match: n =>
-                    !Editor.isEditor(n) &&
-                    SlateElement.isElement(n) &&
-                    n.type === 'table-cell',
-            })
+                match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'table-cell',
+            });
 
             if (cell) {
-                const [, cellPath] = cell
-                const start = Editor.start(editor, cellPath)
+                const [, cellPath] = cell;
+                const start = Editor.start(editor, cellPath);
 
                 if (Point.equals(selection.anchor, start)) {
-                    return
+                    return;
                 }
             }
         }
 
-        deleteBackward(unit)
-    }
+        deleteBackward(unit);
+    };
 
-    editor.deleteForward = unit => {
-        const { selection } = editor
+    editor.deleteForward = (unit) => {
+        const { selection } = editor;
 
         if (selection && Range.isCollapsed(selection)) {
             const [cell] = Editor.nodes(editor, {
-                match: n =>
-                    !Editor.isEditor(n) &&
-                    SlateElement.isElement(n) &&
-                    n.type === 'table-cell',
-            })
+                match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'table-cell',
+            });
 
             if (cell) {
-                const [, cellPath] = cell
-                const end = Editor.end(editor, cellPath)
+                const [, cellPath] = cell;
+                const end = Editor.end(editor, cellPath);
 
                 if (Point.equals(selection.anchor, end)) {
-                    return
+                    return;
                 }
             }
         }
 
-        deleteForward(unit)
-    }
+        deleteForward(unit);
+    };
 
     editor.insertBreak = () => {
-        const { selection } = editor
+        const { selection } = editor;
 
         if (selection) {
             const [table] = Editor.nodes(editor, {
-                match: n =>
-                    !Editor.isEditor(n) &&
-                    SlateElement.isElement(n) &&
-                    n.type === 'table',
-            })
+                match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'table',
+            });
 
             if (table) {
-                return
+                return;
             }
         }
 
-        insertBreak()
-    }
+        insertBreak();
+    };
 
-    return editor
-}
+    return editor;
+};
