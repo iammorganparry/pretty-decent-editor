@@ -17,7 +17,7 @@ type StyledBtnProps = {
     reversed?: boolean;
 };
 
-const StyledBtn = styled(motion.button)<StyledBtnProps>`
+export const StyledBtn = styled(motion.button)<StyledBtnProps>`
     ${({ reversed, active }) => css`
         outline: none;
         border: none;
@@ -77,7 +77,7 @@ export type PrettyDecentButtonProps = {
     type: 'block' | 'mark';
     tooltipProps: TippyProps;
     onClick?: () => void;
-    children: React.ReactElement;
+    children: React.ReactElement | null;
 };
 
 export const PrettyDecentButton = forwardRef(
@@ -97,7 +97,7 @@ export const PrettyDecentButton = forwardRef(
 
         const isActive = checkActive(type);
 
-        const handleClick = (event: React.MouseEvent) => {
+        const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
             event.preventDefault();
             if (!isActive && onClick) {
                 onClick();
@@ -118,6 +118,7 @@ export const PrettyDecentButton = forwardRef(
                     ref={ref}
                     data-toggled={isActive}
                     active={isActive}
+                    onTouchEnd={handleClick}
                     onClick={handleClick}
                     {...others}
                     whileTap={{ scale: 1.8 }}

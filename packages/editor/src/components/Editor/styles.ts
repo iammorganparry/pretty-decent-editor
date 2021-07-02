@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Editable, Slate } from 'slate-react';
 import styled from 'styled-components';
 
@@ -16,8 +17,9 @@ export const StyledSlate = styled(Slate)`
     height: 350px;
 `;
 
-export const EditorContainer = styled.div`
+export const EditorContainer = styled(motion.div)`
     display: flex;
     width: 100%;
+    opacity: 0;
     flex-direction: column;
 `;

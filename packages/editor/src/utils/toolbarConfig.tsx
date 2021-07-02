@@ -15,15 +15,17 @@ import {
 import { v4 as uuid } from 'uuid';
 import { PrettyDecentButtonTypes, PrettyDecentToolbarOption } from '../../slate';
 
+export type PrettyDecentToolbarConfigOptions = {
+    id: string;
+    tooltipText: string;
+    icon: React.ReactElement;
+    format: PrettyDecentToolbarOption;
+    type: PrettyDecentButtonTypes;
+    'data-testId': string;
+};
+
 export type PrettyDecentToolbarConfig = {
-    [key in PrettyDecentToolbarOption]: {
-        id: string;
-        tooltipText: string;
-        icon: React.ReactElement;
-        format: PrettyDecentToolbarOption;
-        type: PrettyDecentButtonTypes;
-        'data-testId': string;
-    };
+    [key in PrettyDecentToolbarOption]: PrettyDecentToolbarConfigOptions;
 };
 
 export const toolbarConfig: PrettyDecentToolbarConfig = {

@@ -17,6 +17,8 @@ export const PrettyDecentLeafs = ({ attributes, children, leaf }: RenderLeafProp
     if (leaf.underline) {
         children = <u>{children}</u>;
     }
-
+    if (leaf.strikethrough) {
+        children = <s>{children}</s>;
+    }
     return <span {...attributes}>{children}</span>;
 };

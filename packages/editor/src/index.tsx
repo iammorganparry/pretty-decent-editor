@@ -20,6 +20,7 @@ ReactDOM.render(
                             'table',
                             'numbered-list',
                             'bulleted-list',
+                            'strikethrough',
                         ],
                     }}
                 />
