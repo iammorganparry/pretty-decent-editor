@@ -1,9 +1,16 @@
-import React, { ForwardedRef, MutableRefObject, PropsWithChildren } from 'react';
+import React from 'react';
 import { PrettyDecentProps } from 'components/Editor';
 import { PrettyDecentMenu } from './PrettyDecentMenu';
 import styled from 'styled-components';
-export const PrettyDecentToolbar = ({ className, ...props }: PropsWithChildren<PrettyDecentProps>) => (
-    <StyledMenu {...props} className={className} />
+
+export type PrettyDecentToolbarProps = {
+    className?: string;
+    children: React.ReactElement[];
+};
+export const PrettyDecentToolbar = ({ className, children, ...props }: PrettyDecentToolbarProps) => (
+    <StyledMenu {...props} className={className}>
+        {children}
+    </StyledMenu>
 );
 
 const StyledMenu = styled(PrettyDecentMenu)`

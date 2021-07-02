@@ -1,11 +1,9 @@
-import { PrettyDecentProps } from 'components/Editor';
-import React, { ForwardedRef, PropsWithChildren } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { PrettyDecentToolbarProps } from './PrettyDecentToolbar';
 
-export const PrettyDecentMenu = React.forwardRef(
-    ({ className, ...props }: PropsWithChildren<PrettyDecentProps>, ref: ForwardedRef<HTMLDivElement>) => (
-        <StyledMenu {...props} ref={ref} className={className} />
-    ),
+export const PrettyDecentMenu = ({ className, ...props }: PrettyDecentToolbarProps) => (
+    <StyledMenu {...props} className={className} />
 );
 
 PrettyDecentMenu.displayName = 'PrettyDecentMenu';

@@ -24,7 +24,8 @@
     "slate": "^0.63.0",
     "slate-hyperscript": "^0.62.0",
     "slate-react": "^0.65.2",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.7",
@@ -42,6 +43,7 @@
     "@types/slate": "^0.47.8",
     "@types/slate-react": "^0.50.1",
     "@types/styled-components": "^5.1.10",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "@vitejs/plugin-react-refresh": "^1.3.1",

@@ -9,7 +9,20 @@ ReactDOM.render(
             style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
         >
             <div style={{ width: 1000, display: 'flex', height: 500 }}>
-                <PrettyDecentEditor />
+                <PrettyDecentEditor
+                    toolbarProps={{
+                        options: [
+                            'bold',
+                            'italic',
+                            'underline',
+                            'code',
+                            'block-quote',
+                            'table',
+                            'numbered-list',
+                            'bulleted-list',
+                        ],
+                    }}
+                />
             </div>
         </div>
     </React.StrictMode>,
