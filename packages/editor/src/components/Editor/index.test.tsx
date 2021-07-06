@@ -4,7 +4,23 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('<PrettyDecentEditor />', () => {
-    const Component = () => <PrettyDecentEditor />;
+    const Component = () => (
+        <PrettyDecentEditor
+            toolbarProps={{
+                options: [
+                    'bold',
+                    'italic',
+                    'underline',
+                    'code',
+                    'block-quote',
+                    'table',
+                    'numbered-list',
+                    'bulleted-list',
+                    'strikethrough',
+                ],
+            }}
+        />
+    );
 
     it('should render', () => {
         expect(render(<Component />)).toBeTruthy();

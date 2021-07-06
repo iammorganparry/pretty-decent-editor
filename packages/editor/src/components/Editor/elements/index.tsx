@@ -3,11 +3,12 @@ import { RenderElementProps } from 'slate-react';
 import { PrettyDecentImage } from './PrettyDecentImage';
 import { PrettyDecentTable } from './PrettyDecentTable';
 import { PrettyDecentTableCell } from './PrettyDecentTableCell';
-
+import { PrettyDecentBlockQuote } from './PrettyDecentBlockQuote';
+import { PrettyDecentCode } from './PrettyDecentCode';
 export const PrettyDecentElements = ({ attributes, children, element }: RenderElementProps) => {
     switch (element.type) {
         case 'code':
-            return <code {...attributes}>{children}</code>;
+            return <PrettyDecentCode {...attributes}>{children}</PrettyDecentCode>;
         case 'table':
             return <PrettyDecentTable {...attributes}>{children}</PrettyDecentTable>;
         case 'table-row':
@@ -15,7 +16,7 @@ export const PrettyDecentElements = ({ attributes, children, element }: RenderEl
         case 'table-cell':
             return <PrettyDecentTableCell {...attributes}>{children}</PrettyDecentTableCell>;
         case 'block-quote':
-            return <blockquote {...attributes}>{children}</blockquote>;
+            return <PrettyDecentBlockQuote {...attributes}>{children}</PrettyDecentBlockQuote>;
         case 'bulleted-list':
             return <ul {...attributes}>{children}</ul>;
         case 'heading-one':

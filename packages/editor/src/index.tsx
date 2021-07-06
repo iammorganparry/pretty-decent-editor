@@ -21,6 +21,7 @@ ReactDOM.render(
                             'numbered-list',
                             'bulleted-list',
                             'strikethrough',
+                            'image',
                         ],
                     }}
                 />

@@ -1,6 +1,21 @@
-import { Descendant, Node } from 'slate';
 import { jsx } from 'slate-hyperscript';
-import { PrettyDecentElement } from '../../slate';
+import { PrettyDecentBlockTypes } from '../../slate';
+
+type PrettyDecentElementTag = {
+    type: PrettyDecentBlockTypes;
+    url?: string;
+};
+type PrettyDecentElementTags = {
+    [key in ElementTagNames as string]: PrettyDecentElementTag;
+};
+
+type PrettyDecentTextTags = {
+    [key in TextTagNames as string]: PrettyDecentElementTag;
+};
+
+type ElementTagNames = keyof typeof ELEMENT_TAGS;
+
+type TextTagNames = keyof typeof TEXT_TAGS;
 
 const ELEMENT_TAGS = {
     A: (el: Element) => ({ type: 'link', url: el.getAttribute('href') }),
@@ -19,10 +34,6 @@ const ELEMENT_TAGS = {
     UL: () => ({ type: 'bulleted-list' }),
 } as const;
 
-type PrettyDecentElementTags = typeof ELEMENT_TAGS & {
-    [key: string]: any;
-};
-
 // COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.
 const TEXT_TAGS = {
     CODE: () => ({ code: true }),
@@ -32,7 +43,7 @@ const TEXT_TAGS = {
     S: () => ({ strikethrough: true }),
     STRONG: () => ({ bold: true }),
     U: () => ({ underline: true }),
-};
+} as const;
 
 export const deserialize = (el: ChildNode): any => {
     if (el.nodeType === 3) {
@@ -56,8 +67,9 @@ export const deserialize = (el: ChildNode): any => {
     }
 
     if (ELEMENT_TAGS[nodeName]) {
+        console.log('in here');
         const attrs = ELEMENT_TAGS[nodeName](el);
-        return jsx('element', attrs, children);
+        return jsx('element', attrs, [{ text: '' }, ...children]);
     }
 
     if (TEXT_TAGS[nodeName]) {

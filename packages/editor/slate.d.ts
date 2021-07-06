@@ -44,7 +44,7 @@ type PrettyDecentToolbarOption =
     | PrettyDecentMarkTypes;
 type PrettyDecentButtonTypes = 'mark' | 'block';
 type PrettyDecentMarkTypes = 'bold' | 'italic' | 'strikethrough' | 'underline';
-type PrettyDecentElementTypes = PrettyDecentBlockTypes;
+type PrettyDecentElementTypes = PrettyDecentBlockTypes | PrettyDecentMarkTypes;
 
 interface PrettyDecentChildren {
     text: string;
@@ -54,11 +54,13 @@ interface PrettyDecentChildren {
     code?: boolean;
     underline?: boolean;
     strikethrough?: boolean;
-    type?: PrettyDecentBlockTypes;
+    type?: PrettyDecentElementTypes;
     children?: PrettyDecentChildren[];
 }
 
-type PrettyDecentElement = { type: PrettyDecentBlockTypes; children: PrettyDecentChildren[]; url?: string };
+type PrettyDecentElement =
+    | { type: PrettyDecentElementTypes; children: PrettyDecentChildren[]; url?: string }
+    | PrettyDecentChildren;
 type PrettyDecentEditor = BaseEditor & ReactEditor;
 
 declare module 'slate' {

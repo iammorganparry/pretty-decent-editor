@@ -97,8 +97,7 @@ export const PrettyDecentButton = forwardRef(
 
         const isActive = checkActive(type);
 
-        const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
-            event.preventDefault();
+        const handleClick = () => {
             if (!isActive && onClick) {
                 onClick();
             }
@@ -118,7 +117,6 @@ export const PrettyDecentButton = forwardRef(
                     ref={ref}
                     data-toggled={isActive}
                     active={isActive}
-                    onTouchEnd={handleClick}
                     onClick={handleClick}
                     {...others}
                     whileTap={{ scale: 1.8 }}

@@ -50,7 +50,7 @@ export const toolbarConfig: PrettyDecentToolbarConfig = {
         tooltipText: 'Code',
         icon: <BiCode />,
         format: 'code',
-        type: 'mark',
+        type: 'block',
         'data-testId': 'code-btn',
     },
     underline: {

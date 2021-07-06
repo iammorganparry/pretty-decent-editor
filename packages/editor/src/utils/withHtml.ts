@@ -2,7 +2,7 @@ import { Transforms } from 'slate';
 import { PrettyDecentEditor } from '../../slate';
 import { deserialize } from './deserialize';
 
-export const withHtml = (editor: PrettyDecentEditor) => {
+export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {
     const { insertData, isInline, isVoid } = editor;
 
     editor.isInline = (element) => {
