@@ -1,10 +1,11 @@
 // TypeScript Users only add this code
-import { BaseEditor, Descendant } from 'slate';
+import { BaseEditor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 type OrNull<T> = T | null;
 
 type PrettyDecentBlockTypes =
+    | 'attachment'
     | 'paragraph'
     | 'block-quote'
     | 'bulleted-list'
@@ -47,21 +48,23 @@ type PrettyDecentMarkTypes = 'bold' | 'italic' | 'strikethrough' | 'underline';
 type PrettyDecentElementTypes = PrettyDecentBlockTypes | PrettyDecentMarkTypes;
 
 interface PrettyDecentChildren {
-    text: string;
+    text?: string;
     marks?: [];
     bold?: boolean;
     italic?: boolean;
     code?: boolean;
     underline?: boolean;
+    url?: string;
     strikethrough?: boolean;
     type?: PrettyDecentElementTypes;
     children?: PrettyDecentChildren[];
 }
 
-type PrettyDecentElement =
-    | { type: PrettyDecentElementTypes; children: PrettyDecentChildren[]; url?: string }
-    | PrettyDecentChildren;
-type PrettyDecentEditor = BaseEditor & ReactEditor;
+type PrettyDecentElement = PrettyDecentChildren;
+type PrettyDecentEditor = BaseEditor &
+    ReactEditor & {
+        toggleMark: (editor: PrettyDecentEditor, mark: PrettyDecentMarkTypes) => void;
+    };
 
 declare module 'slate' {
     interface CustomTypes {

@@ -5,6 +5,7 @@ import { PrettyDecentBlockToolbar } from './PrettyDecentBlockToolbar';
 import { PrettyDecentMarkToolbar } from './PrettyDecentMarkToolbar';
 import { PrettyDecentTableBtn } from '../PrettyDecentTableBtn';
 import { PrettyDecentButton } from '../PrettyDecentButton';
+import { PrettyDecentAttachment } from '../PrettyDecentAttachment';
 type PrettyDecentToolbarBodyProps = {
     toolbarOptions: PrettyDecentToolbarConfigOptions[];
 };
@@ -27,7 +28,18 @@ export const PrettyDecentToolbarBody = ({ toolbarOptions }: PrettyDecentToolbarB
                         if (typeof option !== 'undefined') {
                             const prettyProps = generateBtnProps(option);
                             if (option?.format === 'table') {
-                                return <PrettyDecentTableBtn {...prettyProps}>{option.icon}</PrettyDecentTableBtn>;
+                                return (
+                                    <PrettyDecentTableBtn key={`toolbar-option-${option?.id}`} {...prettyProps}>
+                                        {option.icon}
+                                    </PrettyDecentTableBtn>
+                                );
+                            }
+                            if (option?.format === 'attachment') {
+                                return (
+                                    <PrettyDecentAttachment key={`toolbar-option-${option?.id}`} {...prettyProps}>
+                                        {option.icon}
+                                    </PrettyDecentAttachment>
+                                );
                             }
                             return (
                                 <PrettyDecentButton key={`toolbar-option-${option?.id}`} {...prettyProps}>

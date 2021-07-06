@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
 import { PrettyDecentEditor } from '../../slate';
-import { deserialize } from './deserialize';
+import { deserialize } from '../utils/deserialize';
 
 export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {
     const { insertData, isInline, isVoid } = editor;

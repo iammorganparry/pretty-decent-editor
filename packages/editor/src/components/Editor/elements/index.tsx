@@ -5,8 +5,11 @@ import { PrettyDecentTable } from './PrettyDecentTable';
 import { PrettyDecentTableCell } from './PrettyDecentTableCell';
 import { PrettyDecentBlockQuote } from './PrettyDecentBlockQuote';
 import { PrettyDecentCode } from './PrettyDecentCode';
-export const PrettyDecentElements = ({ attributes, children, element }: RenderElementProps) => {
+import { PrettyDecentAttachmentList } from './PrettyDecentAttachmentList';
+export const PrettyDecentElements = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
     switch (element.type) {
+        case 'attachment':
+            return <PrettyDecentAttachmentList {...attributes} />;
         case 'code':
             return <PrettyDecentCode {...attributes}>{children}</PrettyDecentCode>;
         case 'table':

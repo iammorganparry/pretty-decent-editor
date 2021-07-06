@@ -8,23 +8,8 @@ ReactDOM.render(
         <div
             style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
         >
-            <div style={{ width: 1000, display: 'flex', height: 500 }}>
-                <PrettyDecentEditor
-                    toolbarProps={{
-                        options: [
-                            'bold',
-                            'italic',
-                            'underline',
-                            'code',
-                            'block-quote',
-                            'table',
-                            'numbered-list',
-                            'bulleted-list',
-                            'strikethrough',
-                            'image',
-                        ],
-                    }}
-                />
+            <div style={{ width: 1000, display: 'flex', minHeight: 500 }}>
+                <PrettyDecentEditor onAttachment={(files) => console.table(files)} />
             </div>
         </div>
     </React.StrictMode>,

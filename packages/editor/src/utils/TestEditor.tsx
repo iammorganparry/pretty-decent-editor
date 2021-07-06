@@ -13,12 +13,7 @@ export const PrettyDecentTestEditor = ({ children }: { children: JSX.Element }):
     ]);
     const handleChange = (value: PrettyDecentElement[]) => setValue(value);
     return (
-        <Slate
-            editor={editor}
-            value={value}
-            //@ts-expect-error -- same as the other file
-            onChange={handleChange}
-        >
+        <Slate editor={editor} value={value} onChange={handleChange}>
             {children}
         </Slate>
     );

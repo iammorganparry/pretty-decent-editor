@@ -8,6 +8,7 @@ import {
     BiLink,
     BiListOl,
     BiListUl,
+    BiPaperclip,
     BiStrikethrough,
     BiTable,
     BiUnderline,
@@ -92,6 +93,14 @@ export const toolbarConfig: PrettyDecentToolbarConfig = {
         format: 'image',
         type: 'block',
         'data-testId': 'image-btn',
+    },
+    attachment: {
+        id: uuid(),
+        tooltipText: 'Attachment',
+        icon: <BiPaperclip />,
+        format: 'attachment',
+        type: 'block',
+        'data-testId': 'attachment-btn',
     },
     'block-quote': {
         id: uuid(),

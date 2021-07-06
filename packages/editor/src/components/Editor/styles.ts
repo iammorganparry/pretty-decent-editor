@@ -6,6 +6,8 @@ export const StyledSlateEditor = styled(Editable)`
     border-radius: 0 0 5px 5px;
     padding: 24px;
     margin: 0 4px;
+    max-width: 100%;
+    height: 100%;
     background: #fff;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
@@ -14,7 +16,7 @@ export const StyledSlateEditor = styled(Editable)`
 `;
 
 export const StyledSlate = styled(Slate)`
-    height: 350px;
+    height: 100%;
 `;
 
 export const EditorContainer = styled(motion.div)`
