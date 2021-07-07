@@ -15,6 +15,9 @@
     "test": "jest",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
+  "release": {
+    "branches": ["main"]
+  },
   "dependencies": {
     "@tippyjs/react": "^4.2.5",
     "framer-motion": "^4.1.17",
