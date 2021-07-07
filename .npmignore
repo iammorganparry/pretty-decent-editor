@@ -1,0 +1,4 @@
+packages/**/*
+.github/
+node_modules/
+.vscode
