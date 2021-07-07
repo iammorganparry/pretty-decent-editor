@@ -13,8 +13,9 @@ export const PrettyDecentAttachment = ({ children, ...props }: PrettyDecentButto
             const hasMultipleFiles = event.target?.files?.length > 1;
             const firstFile = [event?.target?.files[0]];
             const allFiles = [...event.target.files];
+            const files = hasMultipleFiles ? allFiles : firstFile;
             onAttachment(hasMultipleFiles ? allFiles : firstFile);
-            setAttachments && setAttachments(hasMultipleFiles ? allFiles : firstFile);
+            setAttachments && setAttachments((ps) => [...ps, ...files] as File[]);
             ReactEditor.focus(editor);
         }
     };

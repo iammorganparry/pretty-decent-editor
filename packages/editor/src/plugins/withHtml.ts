@@ -1,5 +1,5 @@
 import { Transforms } from 'slate';
-import { PrettyDecentEditor } from '../../slate';
+import { PrettyDecentChildren, PrettyDecentEditor } from '../../slate';
 import { deserialize } from '../utils/deserialize';
 
 export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {
@@ -19,7 +19,7 @@ export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {
         if (html) {
             const parsed = new DOMParser().parseFromString(html, 'text/html');
             const fragment = deserialize(parsed.body);
-            Transforms.insertFragment(editor, fragment);
+            Transforms.insertFragment(editor, fragment as PrettyDecentChildren[]);
             return;
         }
 

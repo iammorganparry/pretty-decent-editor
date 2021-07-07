@@ -1,8 +1,8 @@
 {
   "name": "@pretty-decent-editor/editor",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "a pretty decent editor",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": "git@github.com:iammorganparry/pretty-decent-editor.git",
   "author": "Morgan Parry <m.parry@talentticker.ai>",
   "license": "MIT",
@@ -11,6 +11,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
+    "release": "rm -rf ./lib && tsc -p tsconfig.build.json",
     "test": "jest",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },

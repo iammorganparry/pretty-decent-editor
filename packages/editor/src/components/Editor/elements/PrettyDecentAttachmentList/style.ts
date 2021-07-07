@@ -21,11 +21,11 @@ export const StyledList = styled(motion.ul)`
 export const Attachment = styled(motion.li)`
     display: flex;
     height: 26px;
-    width: 100%;
     align-items: center;
     font-size: 12px;
-    margin: 8.5px 0;
-    padding: 8px 16px;
+    margin: 8.5px 4px 8.5px 0;
+    padding: 4px 16px;
+    opacity: 0;
     border-radius: 5px;
     background: #eee;
 `;

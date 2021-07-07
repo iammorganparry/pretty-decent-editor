@@ -1,33 +1,11 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
-    "allowJs": false,
-    "skipLibCheck": false,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "baseUrl": "./src",
-    "jsx": "react",
-    "typeRoots": [
-      "../../node_modules/@types",
-      "../../node_modules",
-      "./node_modules",
-    ]
-  },
+  "extends": "./tsconfig.base.json",
   "include": [
+    "index.ts",
     "./src",
     "slate.d.ts",
-    "./jest-setup.ts"
+  ],
+  "exclude": [
+    "../../node_modules",
   ]
 }

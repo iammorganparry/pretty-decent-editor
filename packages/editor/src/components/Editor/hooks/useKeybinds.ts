@@ -1,6 +1,5 @@
 import isHotkey from 'is-hotkey';
 import React, { useState } from 'react';
-import { useSlateStatic } from 'slate-react';
 import { PDEditor } from 'utils/PDEditor';
 import { PrettyDecentEditor } from '../../../../slate';
 
@@ -18,8 +17,8 @@ const initialBinds = (editor: PrettyDecentEditor): PrettyDecentKeybindMap[] => [
 
 export const useKeybinds = (editor: PrettyDecentEditor) => {
     const [keybinds, setKeybinds] = useState<PrettyDecentKeybindMap[]>(initialBinds(editor));
-    const handleKeybinds = (event: KeyboardEvent) => {
+    const handleKeybinds = (event: React.KeyboardEvent<HTMLDivElement> & KeyboardEvent) => {
         keybinds.forEach(({ keyAction, keyPair }) => isHotkey(keyPair, event) && keyAction());
     };
-    return { handleKeybinds };
+    return { handleKeybinds, keybinds };
 };

@@ -11,6 +11,7 @@ import {
     PrettyDecentChildren,
 } from '../../../../slate';
 import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
 type StyledBtnProps = {
     active: boolean;
     reversed?: boolean;
@@ -74,56 +75,54 @@ export type PrettyDecentButtonProps = {
     children: React.ReactElement | null;
 };
 
-export const PrettyDecentButton = ({
-    format,
-    children,
-    type,
-    tooltipProps,
-    onClick,
-    ...others
-}: PrettyDecentButtonProps): JSX.Element => {
-    const editor = useSlate();
-    const checkActive = (type: 'block' | 'mark') => {
-        switch (type) {
-            case 'block':
-                return isBlockActive(editor, format as PrettyDecentBlockTypes);
-            default:
-                return isMarkActive(editor, format as PrettyDecentMarkTypes);
-        }
-    };
+export const PrettyDecentButton = forwardRef<HTMLButtonElement, PrettyDecentButtonProps>(
+    ({ format, children, type, tooltipProps, onClick, ...others }, ref): JSX.Element => {
+        const editor = useSlate();
+        const checkActive = (type: 'block' | 'mark') => {
+            switch (type) {
+                case 'block':
+                    return isBlockActive(editor, format as PrettyDecentBlockTypes);
+                default:
+                    return isMarkActive(editor, format as PrettyDecentMarkTypes);
+            }
+        };
 
-    const isActive = checkActive(type);
+        const isActive = checkActive(type);
 
-    const handleClick = () => {
-        if (!isActive && onClick) {
-            onClick();
-            ReactEditor.focus(editor);
-            return;
-        }
-        switch (type) {
-            case 'block':
-                toggleBlock(editor, format as PrettyDecentBlockTypes);
+        const handleClick = () => {
+            if (!isActive && onClick) {
+                onClick();
                 ReactEditor.focus(editor);
-                break;
-            default:
-                toggleMark(editor, format as PrettyDecentMarkTypes);
-                ReactEditor.focus(editor);
-                break;
-        }
-    };
+                return;
+            }
+            switch (type) {
+                case 'block':
+                    toggleBlock(editor, format as PrettyDecentBlockTypes);
+                    ReactEditor.focus(editor);
+                    break;
+                default:
+                    toggleMark(editor, format as PrettyDecentMarkTypes);
+                    ReactEditor.focus(editor);
+                    break;
+            }
+        };
 
-    return (
-        <Tippy placement="top" {...tooltipProps}>
-            <StyledBtn
-                data-toggled={isActive}
-                active={isActive}
-                onClick={handleClick}
-                {...others}
-                whileTap={{ scale: 1.8 }}
-                whileHover={{ scale: 1.2 }}
-            >
-                {children}
-            </StyledBtn>
-        </Tippy>
-    );
-};
+        return (
+            <Tippy placement="top" {...tooltipProps}>
+                <StyledBtn
+                    ref={ref}
+                    data-toggled={isActive}
+                    active={isActive}
+                    onClick={handleClick}
+                    {...others}
+                    whileTap={{ scale: 1.8 }}
+                    whileHover={{ scale: 1.2 }}
+                >
+                    {children}
+                </StyledBtn>
+            </Tippy>
+        );
+    },
+);
+
+PrettyDecentButton.displayName = 'PrettyDecentButton';

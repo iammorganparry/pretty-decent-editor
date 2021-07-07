@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ReactEditor, withReact } from 'slate-react';
+import { withReact } from 'slate-react';
 import { createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
@@ -32,7 +32,7 @@ export type PrettyDecentProps = {
     };
     onEditorChange?: (newValue: PrettyDecentElement[]) => void;
     initialState?: PrettyDecentElement[];
-
+    renderAttachments?: React.ReactElement;
     onAttachment?: (state: File[]) => void;
 };
 
@@ -50,7 +50,8 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     const editor = useMemo(() => withHistory(withHtml(withTables(withReact(createEditor())))), []);
     const renderElement = useCallback((props) => <PrettyDecentElements {...props} />, []);
     const renderLeaf = useCallback((props) => <PrettyDecentLeafs {...props} />, []);
-    const { dispatch, onAttachment, onEditorChange, toolbarProps, className, initialState } = usePrettyDecentProps();
+    const { dispatch, onAttachment, onEditorChange, toolbarProps, className, initialState, renderAttachments } =
+        usePrettyDecentProps();
     const toolbarOptions = useMemo(() => generateToolbar(toolbarProps?.options ?? []), [toolbarProps]);
     const { handleKeybinds } = useKeybinds(editor);
     const [bond] = useDropArea({
@@ -87,7 +88,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                     <PrettyDecentToolbar>
                         <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />
                     </PrettyDecentToolbar>
-                    <PrettyDecentAttachmentList />
+                    {renderAttachments ?? <PrettyDecentAttachmentList />}
                 </PrettyDecentAttachmentContextProvider>
                 <StyledSlateEditor
                     placeholder="Enter some text..."

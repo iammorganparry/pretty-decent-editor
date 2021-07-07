@@ -1,0 +1,2 @@
+export declare const StyledList: import("styled-components").StyledComponent<import("framer-motion").ForwardRefComponent<HTMLUListElement, import("framer-motion").HTMLMotionProps<"ul">>, any, {}, never>;
+export declare const Attachment: import("styled-components").StyledComponent<import("framer-motion").ForwardRefComponent<HTMLLIElement, import("framer-motion").HTMLMotionProps<"li">>, any, {}, never>;

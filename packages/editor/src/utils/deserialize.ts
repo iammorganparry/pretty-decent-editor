@@ -1,24 +1,11 @@
 import { jsx } from 'slate-hyperscript';
-import { PrettyDecentBlockTypes } from '../../slate';
-
-type PrettyDecentElementTag = {
-    type: PrettyDecentBlockTypes;
-    url?: string;
-};
-type PrettyDecentElementTags = {
-    [key in ElementTagNames as string]: PrettyDecentElementTag;
-};
-
-type PrettyDecentTextTags = {
-    [key in TextTagNames as string]: PrettyDecentElementTag;
-};
 
 type ElementTagNames = keyof typeof ELEMENT_TAGS;
 
 type TextTagNames = keyof typeof TEXT_TAGS;
 
 const ELEMENT_TAGS = {
-    A: (el: Element) => ({ type: 'link', url: el.getAttribute('href') }),
+    A: (el?: HTMLElement & ChildNode) => ({ type: 'link', url: el?.getAttribute('href') }),
     BLOCKQUOTE: () => ({ type: 'quote' }),
     H1: () => ({ type: 'heading-one' }),
     H2: () => ({ type: 'heading-two' }),
@@ -26,13 +13,13 @@ const ELEMENT_TAGS = {
     H4: () => ({ type: 'heading-four' }),
     H5: () => ({ type: 'heading-five' }),
     H6: () => ({ type: 'heading-six' }),
-    IMG: (el: Element) => ({ type: 'image', url: el.getAttribute('src') }),
+    IMG: (el?: HTMLElement & ChildNode) => ({ type: 'image', url: el?.getAttribute('src') }),
     LI: () => ({ type: 'list-item' }),
     OL: () => ({ type: 'numbered-list' }),
     P: () => ({ type: 'paragraph' }),
     PRE: () => ({ type: 'code' }),
     UL: () => ({ type: 'bulleted-list' }),
-} as const;
+};
 
 // COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.
 const TEXT_TAGS = {
@@ -45,7 +32,7 @@ const TEXT_TAGS = {
     U: () => ({ underline: true }),
 } as const;
 
-export const deserialize = (el: ChildNode): any => {
+export const deserialize = (el: HTMLElement | ChildNode) => {
     if (el.nodeType === 3) {
         return el.textContent;
     } else if (el.nodeType !== 1) {
@@ -60,20 +47,19 @@ export const deserialize = (el: ChildNode): any => {
     if (nodeName === 'PRE' && el.childNodes[0] && el.childNodes[0].nodeName === 'CODE') {
         parent = el.childNodes[0];
     }
-    const children = Array.from(parent.childNodes).map(deserialize).flat();
+    const children = Array.from(parent.childNodes).map(deserialize).flat() as ChildNode[];
 
     if (el.nodeName === 'BODY') {
         return jsx('fragment', {}, children);
     }
 
-    if (ELEMENT_TAGS[nodeName]) {
-        console.log('in here');
-        const attrs = ELEMENT_TAGS[nodeName](el);
+    if (ELEMENT_TAGS[nodeName as ElementTagNames]) {
+        const attrs = ELEMENT_TAGS[nodeName as ElementTagNames](el as HTMLElement);
         return jsx('element', attrs, [{ text: '' }, ...children]);
     }
 
-    if (TEXT_TAGS[nodeName]) {
-        const attrs = TEXT_TAGS[nodeName](el);
+    if (TEXT_TAGS[nodeName as TextTagNames]) {
+        const attrs = TEXT_TAGS[nodeName as TextTagNames]();
         return children.map((child) => jsx('text', attrs, child));
     }
 

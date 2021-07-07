@@ -1,6 +1,6 @@
-import React, { PropsWithChildren, useRef, useState } from 'react';
+import React, { PropsWithChildren, useRef } from 'react';
 import { PrettyDecentButton, PrettyDecentButtonProps } from 'components/Editor/elements/PrettyDecentButton';
-import { Portal, PortalWithState } from 'react-portal';
+import { PortalWithState } from 'react-portal';
 import { Selection } from './Selection';
 
 export const PrettyDecentTableBtn = ({ children, ...props }: PropsWithChildren<PrettyDecentButtonProps>) => {

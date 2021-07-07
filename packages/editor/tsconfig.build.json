@@ -1,0 +1,13 @@
+{
+   "extends": "./tsconfig.base.json",
+   "compilerOptions": {
+    "noEmit": false
+   },
+    "include": [
+      "./index.ts"
+    ],
+    "exclude": [
+      "../../node_modules",
+      "**/*.test.*"
+    ]
+  }
