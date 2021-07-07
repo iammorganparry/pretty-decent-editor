@@ -3,10 +3,11 @@ import { ReactEditor, useSlate } from 'slate-react';
 import { usePrettyDecentProps } from '../hooks/hook';
 import { PrettyDecentButtonProps, PrettyDecentButton } from './PrettyDecentButton';
 import { usePrettyDecentAttachments } from './PrettyDecentAttachmentList/hook';
+import { v4 } from 'uuid';
 export const PrettyDecentAttachment = ({ children, ...props }: PrettyDecentButtonProps): JSX.Element => {
     const ref = useRef<HTMLInputElement>(null);
     const editor = useSlate();
-    const { setAttachments } = usePrettyDecentAttachments();
+    const { setAttachments, attachments } = usePrettyDecentAttachments();
     const { onAttachment } = usePrettyDecentProps();
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && onAttachment) {
@@ -14,8 +15,10 @@ export const PrettyDecentAttachment = ({ children, ...props }: PrettyDecentButto
             const firstFile = [event?.target?.files[0]];
             const allFiles = [...event.target.files];
             const files = hasMultipleFiles ? allFiles : firstFile;
-            onAttachment(hasMultipleFiles ? allFiles : firstFile);
-            setAttachments && setAttachments((ps) => [...ps, ...files] as File[]);
+            const filesWithId = files.map((file) => ({ id: v4(), file }));
+            console.log({ filesWithId });
+            onAttachment([...attachments, ...filesWithId]);
+            setAttachments && setAttachments((ps) => [...ps, ...filesWithId]);
             ReactEditor.focus(editor);
         }
     };
