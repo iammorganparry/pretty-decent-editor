@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "release": "rm -rf ./lib && tsc -p tsconfig.build.json",
+    "release": "rm -rf ../../lib && tsc -p tsconfig.build.json",
     "test": "jest",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },

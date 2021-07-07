@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Prepare Package
-        run: yarn prepare
+        run: yarn workspace @pretty-decent-editor/editor release
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
