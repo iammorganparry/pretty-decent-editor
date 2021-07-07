@@ -29,13 +29,13 @@ export const StyledBtn = styled(motion.button)<StyledBtnProps>`
     `}
 `;
 
-export const isMarkActive = (editor: PrettyDecentEditor, format: PrettyDecentMarkTypes) => {
+export const isMarkActive = (editor: PrettyDecentEditor, format: PrettyDecentMarkTypes): boolean => {
     const marks = Editor.marks(editor) as PrettyDecentChildren;
     return marks ? marks[format] === true : false;
 };
 
-export const toggleMark = (editor: PrettyDecentEditor, format: PrettyDecentMarkTypes) => {
-    editor.toggleMark(editor, format);
+export const toggleMark = (editor: PrettyDecentEditor, format: PrettyDecentMarkTypes): void => {
+    isMarkActive(editor, format) ? Editor.removeMark(editor, format) : Editor.addMark(editor, format, true);
 };
 
 export const isBlockActive = (editor: PrettyDecentEditor, format: PrettyDecentBlockTypes): boolean => {

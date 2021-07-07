@@ -46,7 +46,11 @@ type PrettyDecentToolbarOption =
 type PrettyDecentButtonTypes = 'mark' | 'block';
 type PrettyDecentMarkTypes = 'bold' | 'italic' | 'strikethrough' | 'underline';
 type PrettyDecentElementTypes = PrettyDecentBlockTypes | PrettyDecentMarkTypes;
-
+type PrettyDecentEditorChangeDTO = {
+    children: PrettyDecentChildren[];
+    toString: () => string;
+    toEncodedString: () => string;
+};
 interface PrettyDecentChildren {
     text?: string;
     marks?: [];

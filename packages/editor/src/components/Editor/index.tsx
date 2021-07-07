@@ -3,7 +3,12 @@ import { withReact } from 'slate-react';
 import { createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
-import { PrettyDecentButtonTypes, PrettyDecentElement, PrettyDecentToolbarOption } from '../../../slate';
+import {
+    PrettyDecentButtonTypes,
+    PrettyDecentEditorChangeDTO,
+    PrettyDecentElement,
+    PrettyDecentToolbarOption,
+} from '../../../slate';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
 import { withTables } from 'plugins/withTables';
@@ -30,7 +35,7 @@ export type PrettyDecentProps = {
     toolbarProps?: {
         options: PrettyDecentToolbarOption[];
     };
-    onEditorChange?: (newValue: PrettyDecentElement[]) => void;
+    onEditorChange?: (newValue: PrettyDecentEditorChangeDTO) => void;
     initialState?: PrettyDecentElement[];
     renderAttachments?: React.ReactElement;
     onAttachment?: (files: File[]) => void;
@@ -71,7 +76,17 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     const handleChange = (newValue: PrettyDecentElement[]) => {
         if (typeof newValue !== 'undefined') {
             setValue(newValue);
-            onEditorChange && onEditorChange(newValue);
+            const returnValue = {
+                children: newValue,
+                toString: function () {
+                    return JSON.stringify(this.children);
+                },
+                toEncodedString: function () {
+                    return encodeURIComponent(this.toString());
+                },
+            };
+
+            onEditorChange && onEditorChange(returnValue);
         }
     };
 
