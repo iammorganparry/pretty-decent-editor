@@ -4,9 +4,9 @@ import { createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
 import {
-    PrettyDecentButtonTypes,
     PrettyDecentEditorChangeDTO,
     PrettyDecentElement,
+    PrettyDecentFile,
     PrettyDecentToolbarOption,
 } from '../../../slate';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
@@ -15,7 +15,6 @@ import { withTables } from 'plugins/withTables';
 import 'tippy.js/dist/tippy.css'; // optional for styling
 import { withHtml } from 'plugins/withHtml';
 import { generateToolbar } from 'utils/generateToolbar';
-import { PrettyDecentToolbarConfigOptions } from 'utils/toolbarConfig';
 import { PrettyDecentToolbarBody } from './elements/PrettyDecentToolbar/PrettyDecentToolbarBody';
 import { PrettyDecentPropContextProvider } from './context/context';
 import { usePrettyDecentProps } from './hooks/hook';
@@ -24,6 +23,8 @@ import { PrettyDecentAttachmentContextProvider } from './elements/PrettyDecentAt
 import { PrettyDecentAttachmentList } from './elements/PrettyDecentAttachmentList';
 import { useKeybinds } from './hooks/useKeybinds';
 import { withHistory } from 'slate-history';
+import { usePrettyDecentAttachments } from './elements/PrettyDecentAttachmentList/hook';
+import { v4 } from 'uuid';
 // type CustomElement = { type: 'paragraph'; children: CustomText[] }
 
 export type PrettyDecentProps = {
@@ -38,18 +39,9 @@ export type PrettyDecentProps = {
     onEditorChange?: (newValue: PrettyDecentEditorChangeDTO) => void;
     initialState?: PrettyDecentElement[];
     renderAttachments?: React.ReactElement;
-    onAttachment?: (files: File[]) => void;
-    onImage?: (file: File) => void;
-};
-
-export const generateButtonGroups = (
-    options: PrettyDecentToolbarConfigOptions[],
-    type: PrettyDecentButtonTypes,
-): Partial<PrettyDecentToolbarConfigOptions[]> => {
-    return options.reduce(
-        (acc, curr) => (curr.type === type ? [...acc, curr] : [...acc]),
-        [] as Partial<PrettyDecentToolbarConfigOptions[]>,
-    );
+    onAttachment?: (files: PrettyDecentFile[]) => void;
+    onImage?: (file: PrettyDecentFile) => void;
+    onAttachmentRemove?: (file: PrettyDecentFile) => Promise<void>;
 };
 
 export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element => {
@@ -60,8 +52,9 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
         usePrettyDecentProps();
     const toolbarOptions = useMemo(() => generateToolbar(toolbarProps?.options ?? []), [toolbarProps]);
     const { handleKeybinds } = useKeybinds(editor);
+    const { setAttachments, attachments } = usePrettyDecentAttachments();
     const [bond] = useDropArea({
-        onFiles: (files) => onAttachment && onAttachment(files),
+        onFiles: (files) => handleDrop(files),
         onUri: (uri) => console.log('uri', uri),
         onText: (text) => console.log('text', text),
     });
@@ -72,6 +65,12 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             children: [{ text: '', marks: [], bold: false, italic: false, underline: false, code: false }],
         },
     ]);
+
+    const handleDrop = (files: File[]) => {
+        const filesWithId = files.map((file) => ({ id: v4(), file }));
+        onAttachment && onAttachment([...attachments, ...filesWithId]);
+        setAttachments && setAttachments((ps) => [...ps, ...filesWithId]);
+    };
 
     const handleChange = (newValue: PrettyDecentElement[]) => {
         if (typeof newValue !== 'undefined') {
@@ -100,12 +99,10 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     return (
         <EditorContainer {...bond} initial="hidden" animate={{ opacity: 1 }}>
             <StyledSlate editor={editor} value={value} onChange={handleChange}>
-                <PrettyDecentAttachmentContextProvider>
-                    <PrettyDecentToolbar>
-                        <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />
-                    </PrettyDecentToolbar>
-                    {renderAttachments ?? <PrettyDecentAttachmentList />}
-                </PrettyDecentAttachmentContextProvider>
+                <PrettyDecentToolbar>
+                    <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />
+                </PrettyDecentToolbar>
+                {renderAttachments ?? <PrettyDecentAttachmentList />}
                 <StyledSlateEditor
                     placeholder="Enter some text..."
                     spellCheck
@@ -124,6 +121,8 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
 
 export const PrettyDecentEditor = (props: PrettyDecentProps): JSX.Element => (
     <PrettyDecentPropContextProvider>
-        <PrettyDecentEditorHeart {...props} />
+        <PrettyDecentAttachmentContextProvider>
+            <PrettyDecentEditorHeart {...props} />
+        </PrettyDecentAttachmentContextProvider>
     </PrettyDecentPropContextProvider>
 );

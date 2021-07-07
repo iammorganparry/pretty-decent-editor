@@ -1,8 +1,9 @@
 import React, { createContext, useState } from 'react';
+import { PrettyDecentFile } from '../../../../../slate';
 
 export type PrettyDecentAttachmentContextType = {
-    attachments: File[];
-    setAttachments: React.Dispatch<React.SetStateAction<File[]>> | undefined;
+    attachments: PrettyDecentFile[];
+    setAttachments: React.Dispatch<React.SetStateAction<PrettyDecentFile[]>> | undefined;
 };
 
 const initContext = {
@@ -16,7 +17,7 @@ export const PrettyDecentAttachmentContextProvider = ({
 }: {
     children: React.ReactElement | React.ReactElement[];
 }): JSX.Element => {
-    const [attachments, setAttachments] = useState<File[]>([]);
+    const [attachments, setAttachments] = useState<PrettyDecentFile[]>([]);
     return (
         <PrettyDecentAttachmentContext.Provider value={{ attachments, setAttachments }}>
             {children}

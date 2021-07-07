@@ -51,6 +51,11 @@ type PrettyDecentEditorChangeDTO = {
     toString: () => string;
     toEncodedString: () => string;
 };
+
+type PrettyDecentFile = {
+    id: string;
+    file: File;
+};
 interface PrettyDecentChildren {
     text?: string;
     marks?: [];
