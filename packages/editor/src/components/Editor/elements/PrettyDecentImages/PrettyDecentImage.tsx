@@ -1,7 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { RenderElementProps, useFocused, useSelected } from 'slate-react';
 import styled, { css } from 'styled-components';
-import Resizer from 'react-image-file-resizer';
 
 export const PrettyDecentImage = ({
     attributes,
