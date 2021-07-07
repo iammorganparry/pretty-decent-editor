@@ -21,7 +21,6 @@
       "declaration": true,
       "baseUrl": "./src",
       "rootDir": ".",
-      "outDir": "./lib",
       "jsx": "react",
       "typeRoots": [
         "../../node_modules/@types",
