@@ -11,8 +11,7 @@
     "packages/**"
   ],
   "scripts": {
-    "semantic-release": "semantic-release",
-    "prepare": "yarn workspace @pretty-decent-editor/editor release"
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "semantic-release": "^17.4.4"

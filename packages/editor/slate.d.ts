@@ -52,6 +52,7 @@ interface PrettyDecentChildren {
     marks?: [];
     bold?: boolean;
     italic?: boolean;
+    file?: File;
     code?: boolean;
     underline?: boolean;
     url?: string;

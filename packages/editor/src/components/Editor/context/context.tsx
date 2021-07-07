@@ -19,6 +19,7 @@ const initialContext: PrettyDecentPropContextType = {
             'bulleted-list',
             'strikethrough',
             'attachment',
+            'image',
         ],
     },
     dispatch: undefined,

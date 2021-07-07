@@ -1,6 +1,6 @@
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
-import { PrettyDecentImage } from './PrettyDecentImage';
+import { PrettyDecentImage } from './PrettyDecentImages/PrettyDecentImage';
 import { PrettyDecentTable } from './PrettyDecentTable';
 import { PrettyDecentTableCell } from './PrettyDecentTableCell';
 import { PrettyDecentBlockQuote } from './PrettyDecentBlockQuote';

@@ -33,7 +33,8 @@ export type PrettyDecentProps = {
     onEditorChange?: (newValue: PrettyDecentElement[]) => void;
     initialState?: PrettyDecentElement[];
     renderAttachments?: React.ReactElement;
-    onAttachment?: (state: File[]) => void;
+    onAttachment?: (files: File[]) => void;
+    onImage?: (file: File) => void;
 };
 
 export const generateButtonGroups = (
