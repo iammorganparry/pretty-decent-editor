@@ -17,7 +17,7 @@ export const PrettyDecentBlockToolbar = ({ children }: PrettyDecentBlockToolbarP
             {isMobile && (
                 <StyledBtn active={false} onClick={handleClick}>
                     <BiText />
-                    {open ? <BiChevronDown /> : <BiChevronUp />}
+                    {open ? <BiChevronUp /> : <BiChevronDown />}
                 </StyledBtn>
             )}
             {children}

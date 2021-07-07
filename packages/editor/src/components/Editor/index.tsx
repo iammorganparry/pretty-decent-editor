@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { withReact } from 'slate-react';
+import { ReactEditor, withReact } from 'slate-react';
 import { createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
@@ -25,8 +25,10 @@ import { useKeybinds } from './hooks/useKeybinds';
 import { withHistory } from 'slate-history';
 import { usePrettyDecentAttachments } from './elements/PrettyDecentAttachmentList/hook';
 import { v4 } from 'uuid';
-// type CustomElement = { type: 'paragraph'; children: CustomText[] }
-
+import { checkFileSize } from 'utils/checkFileSize';
+import { toBase64 } from 'utils/toBase64';
+import { prettyDecentErrorNotification } from 'utils/prettyDecentError';
+import { PrettyDecentNotifications } from './elements/PrettyDecentNotifications';
 export type PrettyDecentProps = {
     className?: string;
     /**
@@ -67,9 +69,21 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     ]);
 
     const handleDrop = (files: File[]) => {
-        const filesWithId = files.map((file) => ({ id: v4(), file }));
-        onAttachment && onAttachment([...attachments, ...filesWithId]);
-        setAttachments && setAttachments((ps) => [...ps, ...filesWithId]);
+        if (files) {
+            files.forEach(async (file) => {
+                if (checkFileSize(file)) {
+                    const url = await toBase64(file);
+                    const filesWithId = files.map((file) => ({ id: v4(), file, encodedUrl: url }));
+                    onAttachment && onAttachment([...attachments, ...filesWithId]);
+                    setAttachments && setAttachments((ps) => [...ps, ...filesWithId]);
+                    ReactEditor.focus(editor);
+                } else {
+                    prettyDecentErrorNotification({
+                        message: `File: ${file.name} was bigger then 3MB! please choose another file`,
+                    });
+                }
+            });
+        }
     };
 
     const handleChange = (newValue: PrettyDecentElement[]) => {
@@ -115,6 +129,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                     renderElement={renderElement}
                 />
             </StyledSlate>
+            <PrettyDecentNotifications />
         </EditorContainer>
     );
 };
