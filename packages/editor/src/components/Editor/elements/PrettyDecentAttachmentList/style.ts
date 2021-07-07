@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledList = styled(motion.ul)`
     display: flex;
@@ -19,12 +19,12 @@ export const StyledList = styled(motion.ul)`
     /* margin: 2px; */
 `;
 
-export const Attachment = styled(motion.li)`
+export const sharedAttachment = css`
     display: flex;
     height: 26px;
     align-items: center;
     min-width: 200px;
-    max-width: 200px;
+    max-width: 300px;
     font-size: 12px;
     margin: 1px 4px 1px 0;
     padding: 4px 4px 4px 8px;
@@ -37,6 +37,10 @@ export const Attachment = styled(motion.li)`
         width: 100%;
         max-width: unset;
     }
+`;
+
+export const Attachment = styled(motion.li)`
+    ${sharedAttachment}
 `;
 
 export const AttachmentAction = styled.button`

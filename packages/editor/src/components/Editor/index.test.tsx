@@ -1,5 +1,5 @@
 import React from 'react';
-import { PrettyDecentEditor } from '.';
+import { PrettyDecentEditor } from '../../hooks';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 

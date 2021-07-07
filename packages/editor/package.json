@@ -21,6 +21,7 @@
     "is-hotkey": "^0.2.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-hot-toast": "^2.0.0",
     "react-icons": "^4.2.0",
     "react-image-file-resizer": "^0.4.7",
     "react-portal": "^4.2.1",

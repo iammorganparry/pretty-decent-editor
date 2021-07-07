@@ -22,6 +22,7 @@ export const StyledSlate = styled(Slate)`
 export const EditorContainer = styled(motion.div)`
     display: flex;
     width: 100%;
+    position: relative;
     opacity: 0;
     flex-direction: column;
 `;
