@@ -1,8 +1,7 @@
 {
    "extends": "./tsconfig.base.json",
    "compilerOptions": {
-    "noEmit": false,
-    "outDir": "../../lib",
+    "noEmit": false
    },
     "include": [
       "./index.ts"
