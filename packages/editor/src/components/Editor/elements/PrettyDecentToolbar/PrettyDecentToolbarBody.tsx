@@ -6,6 +6,7 @@ import { PrettyDecentMarkToolbar } from './PrettyDecentMarkToolbar';
 import { PrettyDecentTableBtn } from '../PrettyDecentTableBtn';
 import { PrettyDecentButton } from '../PrettyDecentButton';
 import { PrettyDecentAttachment } from '../PrettyDecentAttachment';
+import { PrettyDecentImageBtn } from '../PrettyDecentImages/PrettyDecentImageBtn';
 type PrettyDecentToolbarBodyProps = {
     toolbarOptions: PrettyDecentToolbarConfigOptions[];
 };
@@ -39,6 +40,13 @@ export const PrettyDecentToolbarBody = ({ toolbarOptions }: PrettyDecentToolbarB
                                     <PrettyDecentAttachment key={`toolbar-option-${option?.id}`} {...prettyProps}>
                                         {option.icon}
                                     </PrettyDecentAttachment>
+                                );
+                            }
+                            if (option?.format === 'image') {
+                                return (
+                                    <PrettyDecentImageBtn key={`toolbar-option-${option?.id}`} {...prettyProps}>
+                                        {option.icon}
+                                    </PrettyDecentImageBtn>
                                 );
                             }
                             return (

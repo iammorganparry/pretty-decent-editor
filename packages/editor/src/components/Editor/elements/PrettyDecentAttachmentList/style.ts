@@ -9,8 +9,8 @@ export const StyledList = styled(motion.ul)`
     opacity: 0;
     visibility: collapse;
     background: #fff;
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
     padding: 4px;
     margin: 0 4px;
     /* height: 100%; */
