@@ -50,6 +50,7 @@ type PrettyDecentEditorChangeDTO = {
     children: PrettyDecentChildren[];
     toString: () => string;
     toEncodedString: () => string;
+    toHTML: () => string;
 };
 
 type PrettyDecentFile = {

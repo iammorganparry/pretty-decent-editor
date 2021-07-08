@@ -1698,6 +1698,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/escape-html@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/escape-html/-/escape-html-1.0.1.tgz#b19b4646915f0ae2c306bf984dc0a59c5cfc97ba"
+  integrity sha512-4mI1FuUUZiuT95fSVqvZxp/ssQK9zsa86S43h9x3zPOSU9BBJ+BfDkXwuaU7BfsD+e7U0/cUUfJFk3iW2M4okA==
+
 "@types/esrever@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@types/esrever/-/esrever-0.2.0.tgz#96404a2284b2c7527f08a1e957f8a31705f9880f"
@@ -1847,10 +1852,10 @@
   dependencies:
     slate-react "*"
 
-"@types/slate@^0.47.8":
-  version "0.47.8"
-  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.47.8.tgz#b7a3916a5c76c1487e1dca0b829e688c40a386fc"
-  integrity sha512-peyg1SKD+01ly3VNoWPcPWmlOS+ltSDzAMkCWmBNTaAJ2s+WY91RQxaqk/cl1m9HQ3wmS1nB/7tbRnOcN5Wr4Q==
+"@types/slate@^0.47.9":
+  version "0.47.9"
+  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.47.9.tgz#ce212ba09bb2c0de470b59b496efeac739eff1b4"
+  integrity sha512-KzC0iNuZJkiKx0dMAC9PBF6TXZNd0l3hqVCF5/7GwCEnLDx6VsETAedAi4OjRpzObvL4x7n8ZS51+sgXHn/HvQ==
   dependencies:
     "@types/react" "*"
     immutable "^3.8.2"
@@ -3269,6 +3274,11 @@ escalade@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
   integrity sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==
+
+escape-html@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
+  integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
 
 escape-string-regexp@^1.0.5:
   version "1.0.5"
