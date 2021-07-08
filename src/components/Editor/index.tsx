@@ -29,6 +29,7 @@ import { checkFileSize } from 'utils/checkFileSize';
 import { toBase64 } from 'utils/toBase64';
 import { prettyDecentErrorNotification } from 'utils/prettyDecentError';
 import { PrettyDecentNotifications } from './elements/PrettyDecentNotifications';
+import { serialize } from 'utils/serialize';
 export type PrettyDecentProps = {
     className?: string;
     /**
@@ -87,7 +88,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     };
 
     const handleChange = (newValue: PrettyDecentElement[]) => {
-        if (typeof newValue !== 'undefined') {
+        if (typeof newValue !== 'undefined' && newValue.length > 0) {
             setValue(newValue);
             const returnValue = {
                 children: newValue,
@@ -97,7 +98,12 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                 toEncodedString: function () {
                     return encodeURIComponent(this.toString());
                 },
+                toHTML: function () {
+                    return serialize(this.children) as string;
+                },
             };
+
+            console.log(returnValue.toHTML());
 
             onEditorChange && onEditorChange(returnValue);
         }

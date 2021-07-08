@@ -23,7 +23,7 @@
       "rootDir": ".",
       "jsx": "react",
       "typeRoots": [
-        "../../node_modules/@types",
+        "node_modules/@types",
         "slate.d.ts"
       ]
     }
